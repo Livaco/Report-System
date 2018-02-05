@@ -8,8 +8,6 @@ Don't edit this file if you do not know what your doing. Only edit the configura
 
 IncludeCS("config.lua")
 
-reports = {}
-
 local function UserPanel()
 
 	--chat.AddText(Color(120, 120, 120) .. "[Report System]" .. Color(255, 0, 0) .. " Opening user menu. If you wish to open the admin menu, use !reportadmin")
@@ -21,9 +19,6 @@ local function UserPanel()
 	ReportedPlayer = "nil"
 	ReportingPlayer = LocalPlayer():Nick()
 	ReportReason = "nil"
-	ReportOtherNotes = "nil"
-
-	reports = {}
 
 	local frame = vgui.Create("DFrame")
 	frame:SetSize(Config.Width, Config.Height)
@@ -82,7 +77,6 @@ local function UserPanel()
 	players.OnRowSelected = function(lst, index, pnl)
 
 		ReportedPlayer = pnl:GetColumnText(1)
-		print(ReportedPlayer)
 
 	end
 
@@ -92,9 +86,9 @@ local function UserPanel()
 
 	local reasonbox = vgui.Create("DTextEntry", frame)
 	reasonbox:SetPos(Config.Width * 0.25, Config.Height * 0.09)
-	reasonbox:SetSize(Config.Width * 0.73, Config.Height * 0.8)
+	reasonbox:SetSize(Config.Width * 0.73, Config.Height * 0.02)
 	reasonbox:SetUpdateOnType(true)
-	reasonbox:SetMultiline(true)
+	reasonbox:SetMultiline(false)
 	reasonbox:SetText(Config.DefaultReason)
 
 	reasonbox.OnChange = function(self)
@@ -102,6 +96,11 @@ local function UserPanel()
 		ReportReason = self:GetValue()
 
 	end
+
+	local submittext = vgui.Create("DLabel", frame)
+	submittext:SetPos(Config.Width * 0.25, Config.Height * 0.2)
+	submittext:SetSize(Config.Width * 0.73, Config.Height * 0.02)
+	submittext:SetText(Config.SubmitText)
 
 	local submitbutton = vgui.Create("DButton", frame)
 	submitbutton:SetText("Submit")
@@ -112,11 +111,17 @@ local function UserPanel()
 
 	submitbutton.DoClick = function()
 
-		table.insert(reports, ReportingPlayer .. " reported " .. ReportedPlayer .. " for " .. ReportReason)
-
 		net.Start("report_reporthandler")
-		net.WriteTable(reports)
+		net.WriteString(ReportingPlayer)
+		net.WriteString(ReportedPlayer)
+		net.WriteString(ReportReason)
 		net.SendToServer()
+
+		if Config.ClosePanelOnSubmit == true then
+
+			frame:Close()
+
+		end
 
 	end
 

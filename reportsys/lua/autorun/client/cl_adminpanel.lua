@@ -61,19 +61,26 @@ local function AdminPanel()
 
 		local reportlist = vgui.Create("DListView", frame)
 		reportlist:Dock(FILL)
-		reportlist:AddColumn("Reports")
+		reportlist:AddColumn("Reports - Right Click to Copy.")
 
 		net.Receive("report_reports", function()
 
-			reportstable = net.ReadTable()
+				ReportTable = net.ReadTable()
 
-			for k,v in pairs(reportstable) do
+				for k,v in pairs(ReportTable) do
 
-				reportlist:AddLine(v)
+					reportlist:AddLine(v)
 
-			end
+				end
 
 		end)
+
+		function reportlist:OnRowRightClick(id, text)
+
+			chat.AddText(Color(120, 120, 120), "[Report System] ", Color(150, 150, 150), "Copied report ID " .. id .. ".")
+			SetClipboardText(text:GetColumnText(1))
+
+		end
 
 	end
 

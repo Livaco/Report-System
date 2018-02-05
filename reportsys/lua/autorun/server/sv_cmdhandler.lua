@@ -12,9 +12,15 @@ util.AddNetworkString("report_nopermerror")
 util.AddNetworkString("report_reporthandler")
 util.AddNetworkString("report_reports")
 
+reports = {}
+
 net.Receive("report_reporthandler", function()
 
-	reportstable = net.ReadTable() -- Hold the var for when the admin menu appears.
+	ReportingPlayer = net.ReadString()
+	ReportedPlayer = net.ReadString()
+	ReportReason = net.ReadString()
+
+	table.insert(reports, ReportingPlayer .. " reported " .. ReportedPlayer .. " for the reason " .. ReportReason)
 
 end)
 
@@ -37,7 +43,7 @@ hook.Add("PlayerSay", "reportsyscmdhandler", function(sender, text, teambool)
 			net.Send(sender)
 
 			net.Start("report_reports")
-			net.WriteTable(reportstable)
+			net.WriteTable(reports)
 			net.Send(sender)
 
 		else
