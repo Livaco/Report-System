@@ -1,3 +1,8 @@
+1.2
+- Added file logging.
+- Fixed ULX Jail Bug.
+
+1.1
 - Moved file storage to Server to add more protection.
 - Added the option to copy reports.
 - Added the configurable option to close the panel once a user reports a player.

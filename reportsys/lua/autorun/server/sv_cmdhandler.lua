@@ -22,6 +22,15 @@ net.Receive("report_reporthandler", function()
 
 	table.insert(reports, ReportingPlayer .. " reported " .. ReportedPlayer .. " for the reason " .. ReportReason)
 
+	local tablejson = util.TableToJSON(reports, false) 
+	if not file.IsDir("livaco/reportsystem", "DATA") then
+
+        file.CreateDir("livaco/reportsystem")
+
+    end
+
+    file.Write("livaco/reportsystem/" .. os.date("%m_%d_%Y %I_%M %p") .. ".txt", os.date() .. "\t" .. tablejson)
+
 end)
 
 hook.Add("PlayerSay", "reportsyscmdhandler", function(sender, text, teambool)
