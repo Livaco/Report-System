@@ -16,13 +16,13 @@ reports = {}
 
 net.Receive("report_reporthandler", function(length, ply)
 
-	ReportedPlayer = net.ReadString()
-	ReportReason = net.ReadString()
+    ReportedPlayer = net.ReadString()
+    ReportReason = net.ReadString()
 
-	table.insert(reports, ply:Nick() .. " reported " .. ReportedPlayer .. " for the reason " .. ReportReason)
+    table.insert(reports, ply:Nick() .. " reported " .. ReportedPlayer .. " for the reason " .. ReportReason)
 
-	local tablejson = util.TableToJSON(reports, false) 
-	if not file.IsDir("livaco/reportsystem", "DATA") then
+    local tablejson = util.TableToJSON(reports, false) 
+    if not file.IsDir("livaco/reportsystem", "DATA") then
 
         file.CreateDir("livaco/reportsystem")
 
