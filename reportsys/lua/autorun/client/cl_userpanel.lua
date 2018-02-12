@@ -112,7 +112,6 @@ local function UserPanel()
 	submitbutton.DoClick = function()
 
 		net.Start("report_reporthandler")
-		net.WriteString(ReportingPlayer)
 		net.WriteString(ReportedPlayer)
 		net.WriteString(ReportReason)
 		net.SendToServer()
