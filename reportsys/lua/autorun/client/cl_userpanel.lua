@@ -17,7 +17,6 @@ local function UserPanel()
 	PANEL.StartTime = SysTime()
 
 	ReportedPlayer = "nil"
-	ReportingPlayer = LocalPlayer():Nick()
 	ReportReason = "nil"
 
 	local frame = vgui.Create("DFrame")
@@ -112,7 +111,6 @@ local function UserPanel()
 	submitbutton.DoClick = function()
 
 		net.Start("report_reporthandler")
-		net.WriteString(ReportingPlayer)
 		net.WriteString(ReportedPlayer)
 		net.WriteString(ReportReason)
 		net.SendToServer()
