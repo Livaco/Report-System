@@ -3,7 +3,7 @@
 Report System
 By Livaco
 
-Don't edit this file if you do not know what your doing. Only edit the configuration.
+Don't edit this file if you do not know what your doing. Only edit the configuration
 ]]--
 
 util.AddNetworkString("report_openuserpanel")
