@@ -17,9 +17,14 @@ reports = {}
 net.Receive("report_reporthandler", function(length, ply)
 
     ReportedPlayer = net.ReadString()
-    local sid = "N/A"
+    local sid = nil
     for k,v in pairs( player.GetAll() ) do
       if v:Nick() == ReportedPlayer then sid = v:SteamID64() end
+    end
+    if sid == nil then
+      ReportedPlayer = ""
+      v:ChatPrint("Player is not valid or online. Check for spelling.")
+      return
     end
     ReportReason = net.ReadString()
     table.insert(reports, ply:Nick() .. ", SteamID " .. ply:SteamID64() .. " | reported | " .. ReportedPlayer .. ", SteamID " .. sid .. " for the reason " .. ReportReason)
