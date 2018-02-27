@@ -81,6 +81,27 @@ local function AdminPanel()
 			SetClipboardText(text:GetColumnText(1))
 
 		end
+		
+		// Add a part to allow the admin to ban players from making reports, store in data file. Use example bellow
+		--[[
+		
+		// Coded this at school :p
+		// Add a DPropertySheet at the top, so you can swich between viewing reports and banning
+			
+		local banpanel = vgui.Create("DPanel")
+		banpanel:Dock(FILL)
+		DPropertySheet:AddSheet("Ban", banpanel, "img")
+		
+		local banplayerlist = vgui.Create("DListView", banpanel)
+		banplayerlist:Dock(FILL)
+		banplayerlist:AddColumn("Player to ban")
+		for k,v in pairs(player.GetAll()) do
+		
+			banplayerlist:AddLine(v)
+		
+		end
+		
+		]]--
 
 	end
 
