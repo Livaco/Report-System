@@ -29,6 +29,7 @@ net.Receive("report_reporthandler", function(length, ply)
     end
 
     file.Write("livaco/reportsystem/" .. os.date("%m_%d_%Y %I_%M %p") .. ".txt", os.date() .. "\t" .. tablejson)
+    -- I'l need to add something for this soon.
 
 end)
 
