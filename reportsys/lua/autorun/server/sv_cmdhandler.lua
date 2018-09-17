@@ -17,9 +17,17 @@ reports = {}
 net.Receive("report_reporthandler", function(length, ply)
 
     ReportedPlayer = net.ReadString()
+    local sid = nil
+    for k,v in pairs( player.GetAll() ) do
+      if ply:Nick() == ReportedPlayer then sid = ply:SteamID64() end
+    end
+    if sid == nil then
+      ReportedPlayer = ""
+      ply:ChatPrint("Player is not valid or online. Check for spelling.")
+      return
+    end
     ReportReason = net.ReadString()
-
-    table.insert(reports, ply:Nick() .. " reported " .. ReportedPlayer .. " for the reason " .. ReportReason)
+    table.insert(reports, ply:Nick() .. ", SteamID " .. ply:SteamID64() .. " | reported | " .. ReportedPlayer .. ", SteamID " .. sid .. " for the reason " .. ReportReason)
 
     local tablejson = util.TableToJSON(reports, false) 
     if not file.IsDir("livaco/reportsystem", "DATA") then
